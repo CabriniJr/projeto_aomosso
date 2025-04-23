@@ -1,6 +1,12 @@
+//Bibliotecas
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+//Funções (fazer header dps)
+void escolha_personalizado(void);
+
+//Váriaveis globais
 short int dias = 0;
 short int refeicoes;
 int nivel[3] = {0,0,0};
@@ -39,6 +45,7 @@ void main(void){
 
     case 3:
         //Personalizado
+        system("clear");
         escolha_personalizado();
 
         
@@ -73,6 +80,7 @@ void escolha_personalizado(void){
         //Refeições disponíveis
         int refdip = 0;
         
+        
         //Soma dos elementos para o acumulador Refeições totais
         for(int j = 0; j<3;j++ ) reftotais += nivel[j];
         refdip = refeicoes - reftotais;
@@ -89,10 +97,10 @@ void escolha_personalizado(void){
             nivel[i] += repbuffer+refdip;
             printf("===> nível %c = %i\n",alfabeto[i],nivel[i]);
             break;
-        }
+        }else{nivel[i] += repbuffer;}
         
-        //acumulador de valores em cada nível
-        nivel[i] += repbuffer;
+        
+        
         
         printf("%hi\n",nivel[i]);
         
