@@ -1,0 +1,13 @@
+A_macarrao
+A_arroz-feijao-carnemoida-pure
+A_arroz-feijao-frango-pure
+A_arroz-feijao-peixe-pure
+A_arroz-feijao-carne-batata
+A_crepioca
+B_strogonoff
+B_kibe
+B_taco
+B_panqueca
+C_pizza
+C_hamburguer
+C_batata-frita-catupiry
