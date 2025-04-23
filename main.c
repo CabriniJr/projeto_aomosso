@@ -1,16 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+short int dias = 0;
+short int refeicoes;
+int nivel[3] = {0,0,0};
+short int repbuffer;
+char alfabeto[] = {'C','B','A'};
 
 
 void main(void){
     printf("-----Gerador de refeições-----\n");
-    short int dias = 0;
-    short int refeicoes;
-    int nivel[3] = {0,0,0};
-    short int repbuffer;
-    char alfabeto[] = {'C','B','A'};
+    
 
     //E/S dos dias
     printf("Digite o número de dias (1 = Seg; 3 = Seg, Ter, Quar...)\n-->");
@@ -39,34 +39,23 @@ void main(void){
 
     case 3:
         //Personalizado
-        for(int i = 0; i < 3; i++){
-            int reftotais = 0;
-            for(int j = 0; j<3;j++ ) reftotais += nivel[j];
-            printf("Digite o número de refeições %c \nRefeições disponíveis %hi\n",alfabeto[i],refeicoes - reftotais);
-            scanf("%hi",&repbuffer);
-            nivel[i] += repbuffer;
-            printf("%hi",nivel[i]);
-            if(refeicoes - reftotais != 0)
-            {   printf("Ainda há refeições, escreva as adicionais (o valor será somado ao existente)\n");
-                i = 0;
-            }else if(refeicoes - reftotais <= 0 ){
-                exit(1);
-            }
-        }
+        escolha_personalizado();
+
+        
     default:
         break;
     }
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+
+
 
 void arquivo(void){
     FILE *banco;
@@ -74,5 +63,41 @@ void arquivo(void){
     banco = fopen("banco.txt","r");
     if(banco == NULL){
         printf("Erro ao abrir o arquivo\n");
+    }
+}
+
+void escolha_personalizado(void){
+    for(int i = 0; i < 3; i++){
+        //Refeições totais
+        int reftotais = 0;
+        //Refeições disponíveis
+        int refdip = 0;
+        
+        //Soma dos elementos para o acumulador Refeições totais
+        for(int j = 0; j<3;j++ ) reftotais += nivel[j];
+        refdip = refeicoes - reftotais;
+        //Pergunta os números de Refeições para o nível do loop
+        
+        printf("Refeições disponíveis %hi\nDigite o número de refeições %c \n",refdip,alfabeto[i]);
+        scanf("%hi",&repbuffer);
+        //Refeições disponíveis menos a resposta
+        refdip -= repbuffer;
+
+        //Se for inputado um valor que seja maior que o total, ele vai adicionar o as refdip no nível e fechar o loop
+        if(refdip <= 0){
+            printf("Sem refeições disponíveis, resto aplicado ao nível\n");
+            nivel[i] += repbuffer+refdip;
+            printf("===> nível %c = %i\n",alfabeto[i],nivel[i]);
+            break;
+        }
+        
+        //acumulador de valores em cada nível
+        nivel[i] += repbuffer;
+        
+        printf("%hi\n",nivel[i]);
+        
+        //Se a diferença das refeições e as refeições postas nos níveis serem maiores que 0 ele reinicia o loop 
+        if(i == 2 && refdip > 0)i = -1;
+        
     }
 }
